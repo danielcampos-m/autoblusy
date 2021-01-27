@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<Configuration status="WARN">
+<properties>
+	<property name="nome">projeto</property>
+	<property name="padraoConsole">%style{%d{HH:mm:ss.SSS}}{black} [%style{%t}{bright,blue}] %highlight{%-5level} %style{%logger{0}}{bright,yellow}: %msg%n%throwable</property>
+	<property name="padraoArquivo">%d{yyyy-MM-dd HH:mm:ss.SSS a} [%t] %-5level %logger{36} - %msg%n</property>
+	<property name="nomeArquivo">logs/${nome}.log</property>
+	<property name="nomeArquivosAntigos">logs/%d{yyyy-MM}/${nome}-%d{yyyy-MM-dd}-%i.log.gz</property>
+	<property name="tamanhoArquivosAntigos">10 MB</property>
+</properties>
+<Appenders>
+	<Console name="Console" target="SYSTEM_OUT">
+		<PatternLayout>
+			<pattern>${padraoConsole}</pattern>
+		</PatternLayout>
+	</Console>
+		<RollingFile name="Arquivo" fileName="${nomeArquivo}" immediateFlush="false" filePattern="${nomeArquivosAntigos}">
+		<PatternLayout>
+			<pattern>${padraoArquivo}</pattern>
+		</PatternLayout>
+		<Policies>
+			<!-- Rotaciona todo dia, se colocar 7 será toda semana -->
+			<!-- <TimeBasedTriggeringPolicy interval="1"/> -->
+			<!-- Maximo 5 arquivos antigos-->
+			<!-- <DefaultRolloverStrategy max="5" /> --> 
+			<!-- Rotaciona quando esse tamanho é atingido -->
+			<SizeBasedTriggeringPolicy size="${tamanhoArquivosAntigos}" />
+		</Policies>
+		
+	</RollingFile>
+</Appenders>
+	<Loggers>
+		<AsyncRoot level="info">
+			<AppenderRef ref="Console" />
+			<!-- <AppenderRef ref="Arquivo" /> -->
+		</AsyncRoot>
+		<AsyncLogger name="daw.projeto" level="debug" additivity="false">
+			<AppenderRef ref="Console" />
+		</AsyncLogger>
+		<!-- Log SQL statements -->
+		<AsyncLogger name="org.hibernate.SQL" level="debug" additivity="false">
+			<AppenderRef ref="Console"/>
+		</AsyncLogger>
+		<AsyncLogger name="org.hibernate.type.descriptor.sql" level="trace" additivity="false">
+			<AppenderRef ref="Console"/>
+		</AsyncLogger>
+	</Loggers>
+</Configuration>

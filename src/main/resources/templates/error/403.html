@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+                   xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Spring MVC com Spring Boot</title>
+</head>
+<body>
+	<div th:substituteby="index::logout"></div>
+	<h1>Você não tem permissão para acessar essa area!</h1>
+	<a href="#" th:href="@{/}">Voltar para página principal</a>
+</body>
+</html>

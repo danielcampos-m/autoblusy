@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+                   xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Gerenciador de Contatos com Spring Boot</title>
+</head>
+<body>
+
+	<div th:fragment="logout" class="logout" sec:authorize="isAuthenticated()">		
+		<p>Usuário Logado: <span sec:authentication="name"></span></p>
+		<p>Papéis: <span sec:authentication="principal.authorities"></span></p>
+		<p sec:authorize="hasRole('ROLE_ADMIN')">Se você está vendo isso é porque você é um ADMIN.</p>
+		<p sec:authorize="hasRole('ROLE_USUARIO')">Se você está vendo isso é porque você é um USUARIO.</p>	
+		<div>
+			<form action="#" th:action="@{/logout}" method="post">					
+				<input type="submit" value="Logout" />
+			</form>
+		</div>
+	</div>
+	<br>
+	<h1>Página de Login</h1>
+	<p>Usuário exemplo: grosbilda / 12345</p>
+	<p th:if="${param.error}">Usuário e/ou senha inválidos.</p>
+	<p th:if="${param.logout}">Você foi deslogado.</p>
+	<form th:action="@{/login}" method="post">
+		<p>
+			<label for="username">Usuário:</label>
+			<input type="text" id="username" name="username" autofocus="autofocus">
+		</p>
+		<p>
+			<label for="password">Password:</label>
+			<input type="password" id="password" name="password">
+		</p>
+		<input type="submit" value="Logar" />
+	</form>
+</body>
+</html>

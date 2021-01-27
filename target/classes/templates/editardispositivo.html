@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+                   xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Spring MVC com Spring Boot</title>
+</head>
+<body>
+
+	<div th:substituteby="index::logout"></div>
+	<br>
+	<br>
+	<h1>Edição de dispositivos</h1>
+	<div>
+		<form action="#" th:action="@{/dispositivoEditado}" th:object="${Dispositivo}" method="POST">
+			<input type="hidden" name="id" th:field="*{id}"></input>
+			<span>Usuario: </span>
+			<input type="text" name="usuario" th:field="*{usuario}"></input>
+			<span>Nome: </span>
+			<input type="text" name="nome" th:field="*{nome}"></input>
+			<span>Status: </span>
+			<input type="text" name="status" th:field="*{status}"></input>
+			<span>Endereço: </span>
+			<input type="text" name="endereco" th:field="*{endereco}"></input>
+			<button type="submit">Enviar</button>
+		</form>
+	</div><br>
+	<hr>
+	<a href="#" th:href="@{/}">Voltar para página principal</a>
+</body>
+</html>

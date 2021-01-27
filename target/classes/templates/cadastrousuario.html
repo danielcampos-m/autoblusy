@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+                   xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Cadastro Usuario</title>
+</head>
+<body>
+<div th:substituteby="index::logout"></div>
+	<div>
+		<form action="#" th:action="@{/Usuario}" th:object="${usuario}" method="POST">
+			<span>Nome: </span>
+			<input type="text" id="nome" name="nome" th:field="*{nome}" th:errorclass="input-erro"/>
+			<span class="texto-erro" th:if="${#fields.hasErrors('nome')}" th:each="erro : ${#fields.errors('nome')}" th:text="${erro} + '. '">Erro no nome</span>
+			<span>Senha: </span>
+			<input type="password" id="senha" name="senha" th:field="*{senha}" th:errorclass="input-erro"/>
+			<span class="texto-erro" th:if="${#fields.hasErrors('senha')}" th:each="erro : ${#fields.errors('senha')}" th:text="${erro} + '. '">Erro no endereco</span>
+			<span>Ativo: </span>
+			
+			<select th:field="*{ativo}">
+			    <option th:value="true" th:text="Ativo"></option>
+			    <option th:value="false" th:text="Inativo"></option>
+			</select>
+			<br>
+			<span>Papel: </span>
+			
+			<div>
+				<input type="checkbox" th:field="*{papeis}" value="1">
+				<label for="papeis">Administrador</label>
+			</div>
+			<div>
+				<input type="checkbox" th:field="*{papeis}" value="2">
+				<label for="papeis">Usuario comum</label>
+			</div>
+			<h2 th:if="${mensagem != '' and mensagem != null}" th:text="${mensagem}">Mensagem</h2>
+			
+			<input type="submit"></input>
+		</form>
+	</div>
+	
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+                   xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Spring MVC com Spring Boot</title>
+</head>
+<body>
+	<div th:substituteby="index::logout"></div>
+	<h1>AREA DO ADMINISTRADOR</h1>
+	<h1>Cadastro de Usuários</h1>
+	<h2 th:if="${mensagem != '' and mensagem != null}" th:text="${mensagem}">Mensagem</h2>
+	<form action="#" th:action="@{/Usuario}" method="get">
+		<input type="submit" value="Inserir Usuario">
+	</form>
+	<div>
+		<table>
+			<tbody>
+				<tr>
+			    <th>NOME</th>
+			    <th>ATIVO</th>
+			    <th>REMOVER</th>
+			    <th>EDITAR</th>
+  			</tr>
+  			<tr th:each="user : ${todosUsuarios}">
+  				<td th:text="${user.nome}"></td>
+  				
+  				<td th:text="${user.ativo}"></td>
+  				<td><form th:action="@{/removerUsuario}" method="POST">
+  					<input type="hidden" name="id" th:value="${user.id}"/>
+  					<button type="submit">Remover</button>
+  				</form></td>
+  				<td><form th:action="@{/editarUsuario}" method="POST">
+  					<input type="hidden" name="id" th:value="${user.id}"/>
+  					<button type="submit" value="Editar">Editar</button>
+  				</form></td>
+  			</tr>
+			</tbody>
+		</table>
+	</div>
+	<form action="#" th:action="@{/newDispositivo}" method="get">
+		<input type="submit" value="Inserir Dispositivo">
+	</form>
+	<div>
+		<table>
+			<tbody>
+				<tr>
+					<th>USUARIO</th>
+					<th>NOME</th>
+					<th>STATUS</th>
+					<th>ENDERECO</th>
+					<th>REMOVER</th>
+					<th>EDITAR</th>
+				</tr>
+				<tr th:each="disp:${todosDispositivos}">
+					<td th:text="${disp.usuario.nome}"></td>
+					<td th:text="${disp.nome}"></td>
+					<td th:text="${disp.status}"></td>
+					<td th:text="${disp.endereco}"></td>
+					<td><form th:action="@{/removerDispositivo}" method="POST">
+  					<input type="hidden" name="iddispositivo" th:value="${disp.id}"/>
+  					<button type="submit" value="Remover">Remover</button>
+  					</form></td>
+  					<td><form th:action="@{/editarDispositivo}" method="POST">
+  					<input type="hidden" name="id" th:value="${disp.id}"/>
+  					<button type="submit" value="Editar">Editar</button>
+  					</form></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<div>
+		<form action="#" th:action="@{/NovoDispositivo}" th:object="${Dispositivo}" method="POST">
+			<span>Usuario:</span>
+			<select id="usuario" th:field="*{Usuario}">
+				<option th:each="user:${todosUsuarios}" th:value="${user.id}" th:text="${user.nome}">
+			</select>
+			
+			<span>Nome: </span>
+			<input type="text" id="nome" name="nome" th:field="*{nome}"/>
+			<span>Status: </span>
+			<input type="text" id="status" name="status" th:field="*{status}"/>
+			<span>Endereço: </span>
+			<input type="text" id="endereco" name="endereco" th:field="*{endereco}"/>
+			<input type="submit"></input>
+		</form>
+	</div>
+	
+	<div>
+	<h4>Registro de alterações</h4>
+		<table>
+			<tbody>
+				<tr>
+					<th>USUARIO</th>
+					<th>DISPOSITIVO</th>
+					<th>ALTERAÇÃO</th>
+					<th>DATA</th>
+				</tr>
+				<tr th:each="alt:${todasAlteracoes}">
+					<td th:text="${alt.dispositivo.usuario.nome}"></td>
+					<td th:text="${alt.dispositivo.nome}"></td>
+					<td th:text="${alt.descricao}"></td>
+					<td th:text="${alt.data}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<a href="#" th:href="@{/}">Voltar para página principal</a>
+</body>
+</html>
