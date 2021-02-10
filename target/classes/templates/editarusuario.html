@@ -4,27 +4,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Spring MVC com Spring Boot</title>
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet" >
+	 <link th:href="@{/css/new.css}" rel="stylesheet" >
+    <title>Editar Usuario</title>
 </head>
 <body>
 
 	<div th:substituteby="index::logout"></div>
 	<br>
 	<br>
-	<h1>Edição de usuario</h1>
-	<div>
-		<form action="#" th:action="@{/usuarioEditado}" th:object="${Usuario}" method="POST">
+	
+	<div class="container p-3">
+		<form action="#" th:action="@{/usuarioEditado}" th:object="${usuario}" method="POST" class="pf p-3">
+		<h1>Edição de usuario</h1>
 			<input type="hidden" name="id" th:field="*{id}"></input>
 			<span>Nome: </span>
-			<input type="text" name="nome" th:field="*{nome}"></input>
+			<input type="text" name="nome" th:field="*{nome}" th:errorclass="input-erro"></input>
+			<span class="texto-erro" th:if="${#fields.hasErrors('nome')}" th:each="erro : ${#fields.errors('nome')}" th:text="${erro} + '. '">Erro no nome</span>
 			<span>Senha: </span>
-			<input type="password" name="senha" th:field="*{senha}"></input>
+			<input type="password" name="senha" th:field="*{senha}" th:errorclass="input-erro"></input>
+			<span class="texto-erro" th:if="${#fields.hasErrors('senha')}" th:each="erro : ${#fields.errors('senha')}" th:text="${erro} + '. '">Erro na senha</span>
 			<span>Situação: </span>
 			<select name="ativo" th:field="*{ativo}">
 				<option th:value="true" th:text="ativo">
 				<option th:value="true" th:text="inativo">
 			</select>
-			<button type="submit">Enviar</button>
+			<button type="submit" class="btn btn-primary">Enviar</button>
 		</form>
 	</div><br>
 	<hr>

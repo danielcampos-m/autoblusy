@@ -1,17 +1,26 @@
 package daw.projeto.controller;
 
+import java.util.List;
+
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import daw.projeto.model.Dispositivo;
 import daw.projeto.model.Usuario;
+//import daw.projeto.model.Usuario;
 import daw.projeto.service.DispositivoService;
+import daw.projeto.service.UsuarioService;
 
 @Controller
 public class DispositivoController {
@@ -20,8 +29,11 @@ public class DispositivoController {
 	@Autowired
 	private DispositivoService ds;
 	
+	@Autowired
+	private UsuarioService us;
+	
 	@PostMapping(value = {"/dispositivo"})
-	public ModelAndView dispositivo(Long d,String status) {
+	public ModelAndView dispositivo(Long d,String status, RedirectAttributes atributos) {
 		logger.info(">>>>>>>>>>>Entrou em dispositivo");
 		logger.info("id passado: {}", d);
 		logger.info("string passado: {}", status);
@@ -30,29 +42,44 @@ public class DispositivoController {
 		
 		if(!result) {
 			logger.info("DISPOSITIVO NÃO ACESSIVEL");
+			atributos.addFlashAttribute("mensagem", "Dispositivo não acessivel.");
 		}else {
 			logger.info("CONCLUIDO");
 		}
+		
 		return new ModelAndView("redirect:/Controle");
 	}
 	
 	@RequestMapping(value = "newDispositivo", method = RequestMethod.GET)
-	public String direcionarDispositivo(Dispositivo dispositivo) {
-		
-		//Usuario usuario = new Usuario();
-		logger.info("Direcionando para cadastro de dispositivo...");
-		return "cadastrodispositivos";
+	public ModelAndView direcionarDispositivo(Dispositivo dispositivo) {
+		ModelAndView mv = new ModelAndView("cadastrodispositivo");
+		List<Usuario> usuarios = us.listarUsuarios();
+		mv.addObject("todosUsuarios",usuarios);
+		return mv;
 	}
 	
 	@PostMapping(value = {"/NovoDispositivo"})
-	public ModelAndView novoDispositivo(Dispositivo dispositivo) {
-//		ModelAndView mv = new ModelAndView();
-		logger.info("ENTROU EM NOVO DISPOSITIVO");
-		logger.info("Dispositivo recebido: {}",dispositivo);
-		
-		ds.salvar(dispositivo);
-		return new ModelAndView("redirect:/Admin");
-//		return mv;
+	public ModelAndView newDispositivo(@Valid Dispositivo dispositivo, BindingResult result, RedirectAttributes atributos){
+		ModelAndView mv = new ModelAndView();
+		logger.info("Entrou em inserirNovoDispositivo");
+		logger.debug("Dispositivo recebido para inserir: {}", dispositivo);
+		if (result.hasErrors()) {
+			logger.debug("O dispositivo recebido para inserir não é válido");
+			logger.debug("Erros encontrados:");
+			for(FieldError erro : result.getFieldErrors()) {
+				logger.debug("{}", erro);
+			}
+			List<Usuario> usuarios = us.listarUsuarios();
+			mv.addObject("todosUsuarios",usuarios);
+			logger.info("Encaminhando para a view CadastroDispositivo");
+			mv.setViewName("cadastrodispositivo"); 
+		} else {
+			logger.info("Redirecionando para a URL /Admin");
+			ds.salvar(dispositivo);
+			atributos.addFlashAttribute("mensagem", "Dispositivo inserido com sucesso!");
+			mv.setViewName("redirect:/Admin"); 
+		}
+		return mv;
 	}
 	
 	@PostMapping(value = {"/removerDispositivo"})
@@ -68,15 +95,28 @@ public class DispositivoController {
 		logger.info("Id no controller: {}",id);
 		ModelAndView mv = new ModelAndView("editardispositivo");
 		Dispositivo dispositivo = ds.achar(id);
-		mv.addObject("Dispositivo",dispositivo);
+		mv.addObject("dispositivo",dispositivo);
 		return mv;
 	}
 	
 	@PostMapping(value = {"/dispositivoEditado"})
-	public ModelAndView dispositivoEditado(Dispositivo dispositivo) {
+	public String dispositivoEditado(@Valid Dispositivo dispositivo, BindingResult result, RedirectAttributes atributos) {
 		logger.info("Dispositivo a ser editado: {}",dispositivo);
-		ds.salvar(dispositivo);
-		logger.info("Dispositivo editado com sucesso!");
-		return new ModelAndView("redirect:/Admin");
+		
+		if (result.hasErrors()) {
+			logger.debug("O dispositivo recebido para edição não é válido");
+			logger.debug("Erros encontrados:");
+			for(FieldError erro : result.getFieldErrors()) {
+				logger.debug("{}", erro);
+			}
+			logger.info("Encaminhando para a view alterar Dispositivo");
+			return "editardispositivo";
+		} else {
+			logger.info("Redirecionando para a URL /Admin");
+			ds.salvar(dispositivo);
+			atributos.addFlashAttribute("mensagem", "Dispositivo alterado com sucesso!");
+			return "redirect:/Admin";
+		}
+
 	}
 }

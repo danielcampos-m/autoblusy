@@ -4,45 +4,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Spring MVC com Spring Boot</title>
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet" >
+	 <link th:href="@{/css/new.css}" rel="stylesheet" >
+    <title>Administração</title>
 </head>
 <body>
 	<div th:substituteby="index::logout"></div>
-	<h1>AREA DO ADMINISTRADOR</h1>
-	<h1>Cadastro de Usuários</h1>
+	<hr>
+	<div class="container">
+		<h1>AREA DO ADMINISTRADOR</h1>
+		<p><a th:href="@{/relatorios/todasalteracoes}">Relatório de registro de alterações</a></p>
 	<h2 th:if="${mensagem != '' and mensagem != null}" th:text="${mensagem}">Mensagem</h2>
-	<form action="#" th:action="@{/Usuario}" method="get">
+		<a href="#" th:href="@{/}">Voltar para página principal</a>
+	<div class="mb-3 mt-3">
+		<form action="#" th:action="@{/Usuario}" method="get">
 		<input type="submit" value="Inserir Usuario">
-	</form>
-	<div>
+		</form>
 		<table>
+		
 			<tbody>
 				<tr>
+				<th>CODIGO</th>
 			    <th>NOME</th>
 			    <th>ATIVO</th>
 			    <th>REMOVER</th>
 			    <th>EDITAR</th>
   			</tr>
   			<tr th:each="user : ${todosUsuarios}">
+  				<td th:text="${user.id}"></td>
   				<td th:text="${user.nome}"></td>
-  				
   				<td th:text="${user.ativo}"></td>
   				<td><form th:action="@{/removerUsuario}" method="POST">
   					<input type="hidden" name="id" th:value="${user.id}"/>
-  					<button type="submit">Remover</button>
+  					<button type="submit" class="btn btn-danger">Remover</button>
   				</form></td>
   				<td><form th:action="@{/editarUsuario}" method="POST">
   					<input type="hidden" name="id" th:value="${user.id}"/>
-  					<button type="submit" value="Editar">Editar</button>
+  					<button type="submit" value="Editar" class="btn btn-warning">Editar</button>
   				</form></td>
   			</tr>
 			</tbody>
 		</table>
 	</div>
+	
+	<div class="mb-3">
 	<form action="#" th:action="@{/newDispositivo}" method="get">
 		<input type="submit" value="Inserir Dispositivo">
 	</form>
-	<div>
 		<table>
 			<tbody>
 				<tr>
@@ -60,35 +68,19 @@
 					<td th:text="${disp.endereco}"></td>
 					<td><form th:action="@{/removerDispositivo}" method="POST">
   					<input type="hidden" name="iddispositivo" th:value="${disp.id}"/>
-  					<button type="submit" value="Remover">Remover</button>
+  					<button type="submit" value="Remover" class="btn btn-danger">Remover</button>
   					</form></td>
   					<td><form th:action="@{/editarDispositivo}" method="POST">
   					<input type="hidden" name="id" th:value="${disp.id}"/>
-  					<button type="submit" value="Editar">Editar</button>
+  					<button type="submit" value="Editar" class="btn btn-warning">Editar</button>
   					</form></td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
+
 	
-	<div>
-		<form action="#" th:action="@{/NovoDispositivo}" th:object="${Dispositivo}" method="POST">
-			<span>Usuario:</span>
-			<select id="usuario" th:field="*{Usuario}">
-				<option th:each="user:${todosUsuarios}" th:value="${user.id}" th:text="${user.nome}">
-			</select>
-			
-			<span>Nome: </span>
-			<input type="text" id="nome" name="nome" th:field="*{nome}"/>
-			<span>Status: </span>
-			<input type="text" id="status" name="status" th:field="*{status}"/>
-			<span>Endereço: </span>
-			<input type="text" id="endereco" name="endereco" th:field="*{endereco}"/>
-			<input type="submit"></input>
-		</form>
-	</div>
-	
-	<div>
+	<div class="">
 	<h4>Registro de alterações</h4>
 		<table>
 			<tbody>
@@ -108,6 +100,7 @@
 		</table>
 	</div>
 	
-	<a href="#" th:href="@{/}">Voltar para página principal</a>
+
+	</div>
 </body>
 </html>

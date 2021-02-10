@@ -4,21 +4,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Spring MVC com Spring Boot</title>
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet" >
+	 <link th:href="@{/css/new.css}" rel="stylesheet" >
+    <title>Controle de Dispositivos</title>
 </head>
 <body>
 
 	<div th:substituteby="index::logout"></div>
+	<hr>
 	<br>
-	<br>
-	<h1>Página principal</h1>
-	<h2>Controle de dispositivos</h2>
-	<div th:each="disp : ${dispositivos}">
-		<form action="#" th:action="@{/dispositivo}" method="POST">
-			<input type="hidden" name="d" th:value="${disp.id}"></input>
-			<button type="submit" th:value="${disp.status}" name="status"><span th:text="${disp.nome}"></span></button>
-		</form>
-	</div><br>
+	<div class="container">
+		<h2>Controle de dispositivos</h2>
+		<h2 th:if="${mensagem != '' and mensagem != null}" th:text="${mensagem}" class="text-danger">Mensagem</h2>
+		<div th:each="disp : ${dispositivos}" class="p-3">
+			<form action="#" th:action="@{/dispositivo}" method="POST">
+				<input type="hidden" name="d" th:value="${disp.id}"></input>
+				<button class="btn btn-success" th:if="${disp.status != 'OFF'}" type="submit" th:value="${disp.status}" name="status"><span th:text="${disp.nome}"></span></button>
+				<button class="btn btn-danger" th:if="${disp.status != 'ON'}" type="submit" th:value="${disp.status}" name="status"><span th:text="${disp.nome}"></span></button>
+			</form>
+		</div>
+	</div>
+	
 	<hr>
 </body>
 </html>

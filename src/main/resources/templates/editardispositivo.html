@@ -4,7 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Spring MVC com Spring Boot</title>
+    
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet" >
+	 <link th:href="@{/css/new.css}" rel="stylesheet" >
+    <title>Editar Dispositivo</title>
 </head>
 <body>
 
@@ -12,18 +15,22 @@
 	<br>
 	<br>
 	<h1>Edição de dispositivos</h1>
-	<div>
-		<form action="#" th:action="@{/dispositivoEditado}" th:object="${Dispositivo}" method="POST">
+	<div class="container p-3">
+		<form action="#" th:action="@{/dispositivoEditado}" th:object="${dispositivo}" method="POST" class="pf p-3">
 			<input type="hidden" name="id" th:field="*{id}"></input>
 			<span>Usuario: </span>
-			<input type="text" name="usuario" th:field="*{usuario}"></input>
+			<input type="text" name="usuario" th:field="*{usuario}" th:errorclass="input-erro"></input>
+			<span class="texto-erro" th:if="${#fields.hasErrors('usuario')}" th:each="erro : ${#fields.errors('usuario')}" th:text="${erro} + '. '">Erro no usuario</span>
 			<span>Nome: </span>
-			<input type="text" name="nome" th:field="*{nome}"></input>
+			<input type="text" name="nome" th:field="*{nome}" th:errorclass="input-erro"></input>
+			<span class="texto-erro" th:if="${#fields.hasErrors('nome')}" th:each="erro : ${#fields.errors('nome')}" th:text="${erro} + '. '">Erro no nome</span>
 			<span>Status: </span>
-			<input type="text" name="status" th:field="*{status}"></input>
+			<input type="text" name="status" th:field="*{status}" th:errorclass="input-erro"></input>
+			<span class="texto-erro" th:if="${#fields.hasErrors('status')}" th:each="erro : ${#fields.errors('status')}" th:text="${erro} + '. '">Erro no status</span>
 			<span>Endereço: </span>
-			<input type="text" name="endereco" th:field="*{endereco}"></input>
-			<button type="submit">Enviar</button>
+			<input type="text" name="endereco" th:field="*{endereco}" th:errorclass="input-erro"></input>
+			<span class="texto-erro" th:if="${#fields.hasErrors('endereco')}" th:each="erro : ${#fields.errors('endereco')}" th:text="${erro} + '. '">Erro no endereco</span>
+			<button type="submit" class="btn btn-primary">Enviar</button>
 		</form>
 	</div><br>
 	<hr>

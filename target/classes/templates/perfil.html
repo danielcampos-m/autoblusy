@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+                   xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet" >
+	 <link th:href="@{/css/new.css}" rel="stylesheet" >
+    <title>Perfil</title>
+</head>
+<body>
+	<div th:substituteby="index::logout"></div>
+	
+	<div class="container">
+		<div>
+		<h3>Meus dados</h3>
+		<p><span>Nome:</span>
+		<span th:text="${Usuario.nome}"></span></p>
+		<p><span>Situação:</span>
+		<span th:if="${Usuario.ativo}" th:text="Ativo"></span></p>
+		
+	</div>
+	
+	<a href="#" th:href="@{/Controle}">Meus dispositivos</a>
+	<div>
+		<h3>Registro de Alterações</h3>
+		<table>
+			<tbody>
+				<tr>
+					<th>DISPOSITIVO</th>
+					<th>ALTERAÇÃO</th>
+					<th>DATA</th>
+				</tr>
+				<tr th:each="alt:${todasAlteracoes}">
+					<td th:text="${alt.dispositivo.nome}"></td>
+					<td th:text="${alt.descricao}"></td>
+					<td th:text="${alt.data}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	</div>
+	
+</body>
+</html>

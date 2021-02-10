@@ -4,12 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet" >
+	 <link th:href="@{/css/new.css}" rel="stylesheet" >
     <title>Cadastro Usuario</title>
 </head>
 <body>
 <div th:substituteby="index::logout"></div>
-	<div>
-		<form action="#" th:action="@{/Usuario}" th:object="${usuario}" method="POST">
+	<div class="container p-3">
+		<form action="#" th:action="@{/Usuario}" th:object="${usuario}" method="POST" class="pf p-3">
 			<span>Nome: </span>
 			<input type="text" id="nome" name="nome" th:field="*{nome}" th:errorclass="input-erro"/>
 			<span class="texto-erro" th:if="${#fields.hasErrors('nome')}" th:each="erro : ${#fields.errors('nome')}" th:text="${erro} + '. '">Erro no nome</span>
@@ -33,9 +35,9 @@
 				<input type="checkbox" th:field="*{papeis}" value="2">
 				<label for="papeis">Usuario comum</label>
 			</div>
-			<h2 th:if="${mensagem != '' and mensagem != null}" th:text="${mensagem}">Mensagem</h2>
+			<h2 th:if="${mensagem != '' and mensagem != null}" th:text="${mensagem}" class="text-danger">Mensagem</h2>
 			
-			<input type="submit"></input>
+			<input type="submit" class="btn btn-primary"></input>
 		</form>
 	</div>
 	

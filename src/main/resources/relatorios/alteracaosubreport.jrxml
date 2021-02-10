@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="alteracaosubreport" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="120b246c-4d1b-4dfe-b1d2-bb174083138f">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter (6)"/>
+	<parameter name="PARAMETRO" class="java.lang.Long"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT mydb.dispositivos.id,
+	mydb.dispositivos.id_usuario,
+	mydb.dispositivos.nome,
+	mydb.dispositivos.status,
+	mydb.dispositivos.endereco,
+	mydb.alteracao.id as "alteracao_id",
+	mydb.alteracao.id_dispositivo,
+	mydb.alteracao.descricao,
+	mydb.alteracao.data
+FROM mydb.alteracao
+	INNER JOIN mydb.dispositivos ON 
+	 mydb.alteracao.id_dispositivo = mydb.dispositivos.id
+where mydb.dispositivos.id_usuario =  $P{PARAMETRO}]]>
+	</queryString>
+	<field name="id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="id"/>
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dispositivos"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_usuario" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="id_usuario"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_usuario"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dispositivos"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nome" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nome"/>
+		<property name="com.jaspersoft.studio.field.label" value="nome"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dispositivos"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="status" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="status"/>
+		<property name="com.jaspersoft.studio.field.label" value="status"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dispositivos"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="endereco" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="endereco"/>
+		<property name="com.jaspersoft.studio.field.label" value="endereco"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dispositivos"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="alteracao_id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="id"/>
+		<property name="com.jaspersoft.studio.field.label" value="alteracao_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="alteracao"/>
+	</field>
+	<field name="id_dispositivo" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="id_dispositivo"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_dispositivo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="alteracao"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="descricao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="descricao"/>
+		<property name="com.jaspersoft.studio.field.label" value="descricao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="alteracao"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="data" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="data"/>
+		<property name="com.jaspersoft.studio.field.label" value="data"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="alteracao"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="41" splitType="Stretch">
+			<staticText>
+				<reportElement x="30" y="10" width="100" height="30" uuid="b9d43010-5af4-48ca-968a-ee27ae5792e0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="12865323-52d0-4ff5-8208-8fafddba9619"/>
+				</reportElement>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Codigo Alteração]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="130" y="10" width="100" height="30" uuid="0a46c70c-6c7c-43ba-af05-7b980374bf99">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="814154da-1f89-4e58-986d-657a9cfa03f8"/>
+				</reportElement>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dispositivo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="230" y="11" width="100" height="30" uuid="d38f30fa-33b9-4da8-a2a7-cefe3d9b563a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f83b9ac3-d18f-422d-8874-25eafe63d4ff"/>
+				</reportElement>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[descricao]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="330" y="10" width="170" height="30" uuid="062ef75d-6973-480d-9bc9-4a40070daf98">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3dfd5615-0808-4f70-95fc-0416127522d3"/>
+				</reportElement>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[data]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="36" splitType="Stretch">
+			<textField>
+				<reportElement x="30" y="0" width="100" height="30" uuid="f599cd16-2a29-48db-974b-af1da832b2d5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="12865323-52d0-4ff5-8208-8fafddba9619"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{alteracao_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="130" y="0" width="100" height="30" uuid="9893e783-9b5c-412b-a5b8-28adb0355bac">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="814154da-1f89-4e58-986d-657a9cfa03f8"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="230" y="0" width="100" height="30" uuid="17be1611-9ce2-4a1d-9812-a80ea855d379">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f83b9ac3-d18f-422d-8874-25eafe63d4ff"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="330" y="0" width="170" height="30" uuid="14e104bc-2f7c-496a-ace6-ae6a1ea0ad02">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3dfd5615-0808-4f70-95fc-0416127522d3"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{data}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

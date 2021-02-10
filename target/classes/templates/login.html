@@ -4,9 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Gerenciador de Contatos com Spring Boot</title>
+    <!-- CSS only -->
+	 <link th:href="@{/css/bootstrap.css}" rel="stylesheet" >
+	 <link th:href="@{/css/new.css}" rel="stylesheet" >
+    <title>Login</title>
 </head>
-<body>
+<body class="d-flex">
 
 	<div th:fragment="logout" class="logout" sec:authorize="isAuthenticated()">		
 		<p>Usuário Logado: <span sec:authentication="name"></span></p>
@@ -20,20 +23,24 @@
 		</div>
 	</div>
 	<br>
-	<h1>Página de Login</h1>
-	<p>Usuário exemplo: grosbilda / 12345</p>
-	<p th:if="${param.error}">Usuário e/ou senha inválidos.</p>
-	<p th:if="${param.logout}">Você foi deslogado.</p>
-	<form th:action="@{/login}" method="post">
-		<p>
-			<label for="username">Usuário:</label>
-			<input type="text" id="username" name="username" autofocus="autofocus">
-		</p>
-		<p>
-			<label for="password">Password:</label>
-			<input type="password" id="password" name="password">
-		</p>
-		<input type="submit" value="Logar" />
-	</form>
+	
+	
+	<div class="position-absolute top-50 start-50 translate-middle p-5 cinzaescuro border-rounded">
+		
+		
+				<form th:action="@{/login}" method="post" class="d-flex flex-column p3">
+				<img class="img-fluid m-4" th:src="@{/images/image1.png}" height="auto" width="256"/>
+			
+				<input type="text" id="username" name="username" autofocus="autofocus" placeholder="Usuario" class="mb-4">
+			
+			
+				<input type="password" id="password" name="password" placeholder="Senha" class="mb-4">
+			
+			<input type="submit" value="Logar" class="btn btn-primary"/>
+			<span th:if="${param.error}" class="text-danger">Usuário e/ou senha inválidos.</span>
+			<p th:if="${param.logout}" class="text-warning">Você foi deslogado.</p>
+			</form>
+		
+	</div>
 </body>
 </html>

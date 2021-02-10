@@ -4,40 +4,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Cadastro Usuario</title>
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet" >
+	 <link th:href="@{/css/new.css}" rel="stylesheet" >
+    <title>Cadastro Dispositivo</title>
 </head>
 <body>
 <div th:substituteby="index::logout"></div>
-	<div>
-		<form action="#" th:action="@{/novoDispositivo}" th:object="${dispositivo}" method="POST">
-			<input type="number" id="usuario" name="usuario" th:field="*{usuario}" th:errorclass="input-erro"/>
-			<span class="texto-erro" th:if="${#fields.hasErrors('nome')}" th:each="erro : ${#fields.errors('nome')}" th:text="${erro} + '. '">Erro no nome</span>
+	<div class="container p-5">
+		<form action="#" th:action="@{/NovoDispositivo}" th:object="${dispositivo}" method="POST" class="pf">
+			<span>Usuario: </span>
+			<select id="usuario" name="usuario" th:field="*{usuario}" th:errorclass="input-erro">
+				<option th:each="user:${todosUsuarios}" th:text="${user.nome}" th:value="${user.id}">
+			</select>
+			<span class="texto-erro" th:if="${#fields.hasErrors('usuario')}" th:each="erro : ${#fields.errors('usuario')}" th:text="${erro} + '. '">Erro no usuario</span>
 			<span>Nome: </span>
 			<input type="text" id="nome" name="nome" th:field="*{nome}" th:errorclass="input-erro"/>
 			<span class="texto-erro" th:if="${#fields.hasErrors('nome')}" th:each="erro : ${#fields.errors('nome')}" th:text="${erro} + '. '">Erro no nome</span>
-			<span>Senha: </span>
-			<input type="password" id="senha" name="senha" th:field="*{senha}" th:errorclass="input-erro"/>
-			<span class="texto-erro" th:if="${#fields.hasErrors('senha')}" th:each="erro : ${#fields.errors('senha')}" th:text="${erro} + '. '">Erro no endereco</span>
-			<span>Ativo: </span>
+			<span>Endereco: </span>
+			<input type="text" id="endereco" name="endereco" th:field="*{endereco}" th:errorclass="input-erro"/>
+			<span class="texto-erro" th:if="${#fields.hasErrors('endereco')}" th:each="erro : ${#fields.errors('endereco')}" th:text="${erro} + '. '">Erro no endereco</span>
+			<span>Status: </span>
+			<input type="text" id="status" name="status" th:field="*{status}" th:errorclass="input-erro"/>
+			<span class="texto-erro" th:if="${#fields.hasErrors('status')}" th:each="erro : ${#fields.errors('status')}" th:text="${erro} + '. '">Erro no status</span>
 			
-			<select th:field="*{ativo}">
-			    <option th:value="true" th:text="Ativo"></option>
-			    <option th:value="false" th:text="Inativo"></option>
-			</select>
-			<br>
-			<span>Papel: </span>
 			
-			<div>
-				<input type="checkbox" th:field="*{papeis}" value="1">
-				<label for="papeis">Administrador</label>
-			</div>
-			<div>
-				<input type="checkbox" th:field="*{papeis}" value="2">
-				<label for="papeis">Usuario comum</label>
-			</div>
 			<h2 th:if="${mensagem != '' and mensagem != null}" th:text="${mensagem}">Mensagem</h2>
 			
-			<input type="submit"></input>
+			<input class="btn btn-primary" type="submit"></input>
 		</form>
 	</div>
 	

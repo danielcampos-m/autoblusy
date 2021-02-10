@@ -15,7 +15,9 @@ import org.springframework.stereotype.Service;
 
 import com.fazecast.jSerialComm.SerialPort;
 
+import daw.projeto.model.Alteracao;
 import daw.projeto.model.Dispositivo;
+import daw.projeto.model.Usuario;
 import daw.projeto.repository.DispositivoRepository;
 
 @Service
@@ -172,5 +174,11 @@ public class DispositivoService {
 		logger.info("Id no service: {}", id);
 		Optional<Dispositivo> dispositivo = dr.findById(id);
 		return dispositivo.get();
+	}
+	
+	@Transactional
+	public List<Dispositivo> acharDispositivosPorUsuario(Usuario usuario){
+		List<Dispositivo> dispositivos = dr.findByUsuario(usuario);
+		return dispositivos;
 	}
 }

@@ -11,5 +11,5 @@ import daw.projeto.model.Usuario;
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	List<Usuario> findByNomeContainingIgnoreCase (String nome);
 	Usuario findByNome (String nome);
-	
+	//Usuario findByNomeUsuario (String nomeUsuario);
 }

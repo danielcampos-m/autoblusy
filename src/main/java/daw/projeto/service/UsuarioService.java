@@ -97,4 +97,33 @@ public class UsuarioService {
 		return user.get();
 		
 	}
+	
+	@Transactional 
+	public Usuario UsuarioLogado() {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String nome;
+
+		if (principal instanceof UserDetails) {
+		    nome = ((UserDetails)principal).getUsername();
+		} else {
+		    nome = principal.toString();
+		}
+
+		Usuario useratual = ur.findByNome(nome);
+		return useratual;
+	}
+	
+	@Transactional
+	public boolean isNomeUsuarioJaUsado(String nomeUsuario) {
+		logger.trace("Entrou em isNomeUsuarioJaUsado");
+		logger.debug("nomeUsuario recebido para testar {}", nomeUsuario);
+		return ur.findByNome(nomeUsuario) != null;
+	}
+	
+	@Transactional
+	public List<Usuario> listarUsuarios(){
+		List<Usuario> usuarios = ur.findAll();
+		
+		return usuarios;
+	}
 }

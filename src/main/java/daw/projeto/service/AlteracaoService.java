@@ -2,6 +2,7 @@ package daw.projeto.service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import daw.projeto.model.Alteracao;
 import daw.projeto.model.Dispositivo;
+import daw.projeto.model.Usuario;
 import daw.projeto.repository.AlteracaoRepository;
 
 @Service
@@ -21,6 +23,9 @@ public class AlteracaoService {
 	
 	@Autowired
 	private AlteracaoRepository ar;
+	
+	@Autowired
+	private DispositivoService ds;
 	
 	@Transactional
 	public boolean reportarAlteracao(String descricao, Dispositivo dispositivo) {
@@ -39,6 +44,18 @@ public class AlteracaoService {
 	@Transactional 
 	public List<Alteracao> ListarTodasAlteracoes(){
 		List<Alteracao> alteracoes = ar.findAll();
+		return alteracoes;
+	}
+	
+	@Transactional
+	public List<Alteracao> acharAlteracaoDeUsuario(Usuario usuario){
+		List<Dispositivo> dispositivos = ds.acharDispositivosPorUsuario(usuario);
+		List<Alteracao> alteracoes = new ArrayList();
+		for(Dispositivo d:dispositivos) {
+			for(Alteracao a:ar.findByDispositivo(d)) {
+				alteracoes.add(a);
+			}
+		}
 		return alteracoes;
 	}
 }

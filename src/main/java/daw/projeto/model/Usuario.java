@@ -16,6 +16,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import daw.projeto.validation.NomeUsuarioUnico;
+
 @Entity
 @Table(name="usuarios")
 public class Usuario implements Serializable{
@@ -29,6 +31,7 @@ public class Usuario implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@NomeUsuarioUnico
 	@Column(name = "nome")
 	@NotBlank(message = "O nome é obrigatório")
 	@Size(min = 5, max = 255, message = "O nome deve ter entre 5 e 255 caracteres")

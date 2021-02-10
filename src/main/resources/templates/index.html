@@ -4,19 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet" >
+	 <link th:href="@{/css/new.css}" rel="stylesheet" >
     <title>Spring MVC com Spring Boot</title>
 </head>
 <body>
-	<div th:fragment="logout" class="logout" sec:authorize="isAuthenticated()">	
-		<p sec:authorize="hasRole('ROLE_ADMIN')"><a href="#" th:href="@{/Admin}">ADMINISTRAÇÃO</a></p>
-		<p sec:authorize="hasRole('ROLE_USUARIO')"><span sec:authentication="name"></span></p>	
-		<div>
+	<div th:fragment="logout" class="logout d-flex justify-content-between p-4" sec:authorize="isAuthenticated()">	
+	<img class="img-fluid " th:src="@{/images/image1.png}" height="auto" width="256"/>
+		<div class="d-flex flex-row">
+		<span sec:authorize="hasRole('ROLE_ADMIN')" class="p-2"><a href="#" th:href="@{/Admin}">ADMINISTRAÇÃO</a></span>
+		<span sec:authorize="hasRole('ROLE_USUARIO')" class="p-2"><a href="#" th:href="@{/Perfil}"><span sec:authentication="name"></span></a></span>
 			<form action="#" th:action="@{/logout}" method="post">					
-				<input type="submit" value="Logout" />
+				<input type="submit" value="Logout" class="p-2"> 
 			</form>
 		</div>
 	</div>
 	<h1>Index</h1><br>
+	
 	
 	<a href="#" th:href="@{/Controle}">Controle</a>
 	<a href="#" th:href="@{/Admin}">Admin</a>

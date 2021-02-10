@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RegistroAlteracoes" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c873572c-dce1-4d81-b954-f44b6222a44c">
+	<property name="com.jaspersoft.studio.data.sql.tables">
+		<![CDATA[bXlkYi51c3VhcmlvcyBBUyAsNDcsNTMsN2Y3ZDFhNGQtZDA5ZS00NDA0LTljY2MtMTIyYzcwNmM3
+NDQyOw==]]>
+	</property>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter (2)"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT mydb.usuarios.id,
+	mydb.usuarios.nome
+FROM mydb.usuarios]]>
+	</queryString>
+	<field name="id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="id"/>
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="usuarios"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nome" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nome"/>
+		<property name="com.jaspersoft.studio.field.label" value="nome"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="usuarios"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="83" splitType="Stretch">
+			<staticText>
+				<reportElement x="120" y="30" width="320" height="30" uuid="15dad81d-a512-4495-8584-4c222d1ccddf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[REGISTRO DE ALTERACOES]]></text>
+			</staticText>
+			<line>
+				<reportElement x="10" y="80" width="540" height="1" uuid="05f1109e-cd58-475d-a79f-342c6fc1d818"/>
+			</line>
+		</band>
+	</title>
+	<detail>
+		<band height="272" splitType="Stretch">
+			<textField>
+				<reportElement x="260" y="30" width="100" height="30" uuid="093ffd49-ccf1-458f-aaf0-7c08192c9a17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="30" width="100" height="30" uuid="d28ac66a-3dbf-4afc-b80f-872c386d1531"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="30" width="160" height="30" uuid="31b55012-55a9-4eb3-898c-152bfff267a5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Alterações pelo usuário:]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="10" y="60" width="560" height="200" uuid="c93fcf3c-9230-43f2-92ae-0112e7763018"/>
+				<subreportParameter name="PARAMETRO">
+					<subreportParameterExpression><![CDATA[$F{id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"alteracaosubreport.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="43">
+			<textField>
+				<reportElement x="475" y="5" width="100" height="30" uuid="c7d8ce8a-d250-480b-b819-f5cf72c57e18"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="375" y="5" width="100" height="30" uuid="5bb47e87-fe6c-4d6c-8d24-711ac435492c"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[Página:]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="5" y="5" width="100" height="30" uuid="788e33ed-b1be-4d93-8e55-0ed4d2d06b5c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

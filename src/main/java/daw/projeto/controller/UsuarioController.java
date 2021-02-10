@@ -72,6 +72,17 @@ public class UsuarioController {
 		return mv;	
 	}
 	
+	@GetMapping(value = {"/Perfil"} )
+	public ModelAndView Perfi() {
+		ModelAndView mv = new ModelAndView("perfil");
+		Usuario eu = us.UsuarioLogado();
+		List<Alteracao> minhas= as.acharAlteracaoDeUsuario(eu);
+		
+		mv.addObject("Usuario", eu);
+		mv.addObject("todasAlteracoes", minhas);
+		return mv;
+	}
+	
 	@RequestMapping(value = "Usuario", method = RequestMethod.GET)
 	public String direcionarCadastro(Usuario usuario) {
 		
@@ -97,7 +108,7 @@ public class UsuarioController {
 				usuario.setAtivo(true);
 				usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
 				us.salvar(usuario);
-				atributos.addFlashAttribute("mensagem", "Contato inserido com sucesso!");
+				atributos.addFlashAttribute("mensagem", "Usuario inserido com sucesso!");
 				logger.info("Redirecionando para a URL /Admin");
 				return "redirect:/Admin";
 			} else {
@@ -105,6 +116,7 @@ public class UsuarioController {
 				atributos.addFlashAttribute("mensagem", "Deve-se escolher um papel para o usuario");
 				logger.info("Encaminhando para a view CadastroUsuario");
 				return "redirect:/Usuario";
+//				return "cadastrousuario";
 			}
 		}
 	}
@@ -123,17 +135,31 @@ public class UsuarioController {
 		logger.info("Id no controller: {}",id);
 		ModelAndView mv = new ModelAndView("editarusuario");
 		Usuario usuario = us.achar(id);
-		mv.addObject("Usuario",usuario);
+		mv.addObject("usuario",usuario);
 		
 		return mv;
 	}
 	
 	@PostMapping(value = {"/usuarioEditado"} )
-	public ModelAndView usuarioEditado(Usuario usuario) {
+	public String usuarioEditado(@Valid Usuario usuario, BindingResult result, RedirectAttributes atributos) {
 		logger.info("usuario a ser editado: {}",usuario);
-		us.salvar(usuario);
-		logger.info("usuario editado com sucesso!");
-		return new ModelAndView("redirect:/Admin");
+//		us.salvar(usuario);
+//		logger.info("usuario editado com sucesso!");
+//		return new ModelAndView("redirect:/Admin");
+		if (result.hasErrors()) {
+			logger.debug("O usuario recebido para inserir não é válido");
+			logger.debug("Erros encontrados:");
+			for(FieldError erro : result.getFieldErrors()) {
+				logger.debug("{}", erro);
+			}
+			logger.info("Encaminhando para a view Editarusuario");
+			return "editarusuario";
+		} else {
+			logger.info("Redirecionando para a URL /Admin");
+			us.salvar(usuario);
+			atributos.addFlashAttribute("mensagem", "Usuario editado com sucesso!");
+			return "redirect:/Admin";
+		}
 	}
 	
 	 public ModelAndView buildAdmin() {

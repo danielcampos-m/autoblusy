@@ -12,6 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+//import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="dispositivos")
@@ -26,12 +29,17 @@ public class Dispositivo implements Serializable{
 	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
 	@Column(name = "nome")
+	@NotBlank(message = "O nome é obrigatório, ")
+	@Size(min = 1, max = 255, message = "O nome deve ter entre 1 e 255 caracteres")
 	private String nome;
 	@Column(name = "status")
+	@NotBlank(message = "Defina o status do dispositivo, ")
+	@Size(min = 1, max = 255, message = "O status deve ter entre 1 e 255 caracteres")
 	private String status;
 	@Column(name = "endereco")
+	@NotBlank(message = "Sem uma porta não é possivel acessar o dispositivo. ")
+	@Size(min = 5, max = 255, message = "O endereço deve ter entre 5 e 255 caracteres")
 	private String endereco;
-	
 	
 
 	public Dispositivo(Long id) {

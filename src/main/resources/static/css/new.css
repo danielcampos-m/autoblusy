@@ -1,0 +1,28 @@
+
+.cinzaescuro{
+	background-color:  #B0C4DE;
+}
+
+table{
+	padding: 10px;
+	border: solid 2px;
+	border-collapse: separate;
+}
+
+th{
+	padding:10px;
+}
+
+td{
+	padding: 10px;
+}
+
+.texto-erro{
+	color: red;
+}
+
+.pf{
+	display: flex;
+	flex-flow: column;
+	
+}
