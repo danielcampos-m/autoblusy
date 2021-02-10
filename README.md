@@ -12,4 +12,6 @@ Controle de dispositivos(microcontrolador) por porta serial. Java, HTML, CSS com
 - Controle de dispositivo por porta serial
 - Mensagens de erro especificas
 - Views e formulários com Thymeleaf
-
+- CRUD de usuários
+- CRUD de dispositivos
+- Registro de alterações de dispositivos
